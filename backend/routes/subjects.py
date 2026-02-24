@@ -14,6 +14,10 @@ def serialize_subject(doc: dict) -> dict:
     for author in doc.get("authors", []):
         if isinstance(author.get("user_id"), ObjectId):
             author["user_id"] = str(author["user_id"])
+    if "submitted_by" in doc and isinstance(doc["submitted_by"], ObjectId):
+        doc["submitted_by"] = str(doc["submitted_by"])
+    if "reviewed_by" in doc and isinstance(doc["reviewed_by"], ObjectId):
+        doc["reviewed_by"] = str(doc["reviewed_by"])
     return doc
 
 

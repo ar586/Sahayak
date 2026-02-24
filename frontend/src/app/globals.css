@@ -1,20 +1,28 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: #8b5cf6; /* Vibrant Purple */
-  --color-primary-hover: #7c3aed;
-  --color-secondary: #ec4899; /* Pink */
-  --color-surface: #171717; /* Neutral 900 */
-  --color-surface-hover: #262626; /* Neutral 800 */
-  --color-border: #2e2e2e;
+  --color-primary: #3b82f6;
+  /* Brighter Blue for Dark Mode */
+  --color-primary-hover: #60a5fa;
+  --color-secondary: #10b981;
+  /* Emerald Green */
+  --color-surface: #1e293b;
+  /* Slate 800 */
+  --color-surface-hover: #334155;
+  /* Slate 700 */
+  --color-border: #334155;
+  /* Slate 700 */
 }
 
 @layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #f3f4f6; /* Gray 100 */
+    --background: #0f172a;
+    /* Slate 900 */
+    --foreground: #f8fafc;
+    /* Slate 50 */
   }
 
   body {
@@ -28,22 +36,47 @@
 
 @layer components {
   .glass-panel {
-    @apply bg-surface/50 backdrop-blur-md border border-border rounded-xl shadow-xl transition-all;
+    @apply bg-surface border border-border rounded-xl shadow-sm transition-all;
   }
-  
+
   .glass-panel:hover {
-    @apply border-primary/50 shadow-[0_0_15px_rgba(139,92,246,0.15)];
+    @apply border-slate-500 shadow-md transform -translate-y-0.5;
   }
 
   .btn-primary {
-    @apply bg-primary hover:bg-primary-hover text-white font-medium py-2 px-4 rounded-lg transition-colors border border-primary-hover/50 shadow-lg shadow-primary/20;
+    @apply bg-primary hover:bg-primary-hover text-white font-medium py-2.5 px-5 rounded-lg transition-colors shadow-sm;
   }
-  
+
   .btn-outline {
-    @apply bg-transparent border border-border hover:border-foreground/30 hover:bg-surface text-foreground font-medium py-2 px-4 rounded-lg transition-colors;
+    @apply bg-transparent border-2 border-primary text-primary-hover hover:bg-primary/10 font-medium py-2 px-5 rounded-lg transition-colors;
   }
-  
+
   .badge {
     @apply px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide border;
+  }
+
+  /* Make markdown text highly visible in dark mode */
+  .prose {
+    color: var(--color-foreground);
+  }
+
+  .prose p,
+  .prose ul,
+  .prose ol,
+  .prose li {
+    color: #cbd5e1 !important;
+    /* slate-300 */
+  }
+
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose strong {
+    color: #ffffff !important;
+  }
+
+  .prose hr {
+    @apply border-slate-700 my-6;
   }
 }

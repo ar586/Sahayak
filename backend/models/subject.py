@@ -1,6 +1,9 @@
 from pydantic import BaseModel, Field
-from typing import Optional, List, Literal
+from pydantic.functional_validators import BeforeValidator
+from typing import Optional, List, Literal, Annotated
 from datetime import datetime
+
+PyObjectId = Annotated[str, BeforeValidator(str)]
 
 
 class CourseInfo(BaseModel):
@@ -86,5 +89,7 @@ class SubjectOut(BaseModel):
     endsem_strategy: str
     syllabus_image_url: str
     is_published: bool
+    submitted_by: Optional[PyObjectId] = None
+    reviewed_by: Optional[PyObjectId] = None
     created_at: datetime
     updated_at: datetime
