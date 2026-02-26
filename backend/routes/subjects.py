@@ -22,7 +22,7 @@ def serialize_subject(doc: dict) -> dict:
 
 
 @router.get("", response_model=list)
-async def list_subjects(department: str = None, semester: int = None):
+async def list_subjects(department: str = None, semester: int = None, search: str = None):
     """Public endpoint — returns all published subjects, with optional filters."""
     db = get_db()
     query = {"is_published": True}
@@ -30,6 +30,8 @@ async def list_subjects(department: str = None, semester: int = None):
         query["course.department"] = department
     if semester:
         query["course.semester"] = semester
+    if search:
+        query["name"] = {"$regex": search, "$options": "i"}
 
     subjects = []
     async for doc in db.subjects.find(query).sort("course.semester", 1):
@@ -107,10 +109,18 @@ async def delete_subject(
     subject_id: str,
     current_user: dict = Depends(require_contributor),
 ):
-    """Admin only — hard delete a subject."""
-    if current_user["role"] != "admin":
-        raise HTTPException(status_code=403, detail="Admin access required")
+    """Admin or Author — hard delete a subject."""
     db = get_db()
-    result = await db.subjects.delete_one({"_id": ObjectId(subject_id)})
-    if result.deleted_count == 0:
+    doc = await db.subjects.find_one({"_id": ObjectId(subject_id)})
+    if not doc:
         raise HTTPException(status_code=404, detail="Subject not found")
+
+    is_admin = current_user["role"] == "admin"
+    is_author = str(doc.get("submitted_by")) == current_user["id"] or any(
+        str(a.get("user_id")) == current_user["id"] for a in doc.get("authors", [])
+    )
+    
+    if not (is_admin or is_author):
+        raise HTTPException(status_code=403, detail="Not authorized to delete this subject")
+        
+    await db.subjects.delete_one({"_id": ObjectId(subject_id)})

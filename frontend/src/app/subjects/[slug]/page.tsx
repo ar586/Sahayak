@@ -11,6 +11,12 @@ interface Unit {
     topics: string[];
 }
 
+interface Material {
+    title: string;
+    url: string;
+    type: "video" | "document" | "link";
+}
+
 interface Subject {
     id: string;
     name: string;
@@ -23,6 +29,10 @@ interface Subject {
     midsem_strategy: string;
     endsem_strategy: string;
     authors?: { user_id: string; display_name: string }[];
+    syllabus_image_url?: string;
+    midsem_pyq_url?: string;
+    endsem_pyq_url?: string;
+    materials?: Material[];
 }
 
 async function getSubject(slug: string): Promise<Subject | null> {
@@ -61,11 +71,20 @@ export default async function SubjectPage({ params }: { params: Promise<{ slug: 
         <div className="space-y-12 py-8">
             <header className="grid md:grid-cols-[1fr_2fr] gap-8 items-start pb-4">
                 {/* Image Section */}
-                <div className="w-full relative rounded-2xl overflow-hidden shadow-sm border border-border bg-surface flex items-center justify-center">
-                    <ImageModal
-                        src="https://res.cloudinary.com/daq7qzn4r/image/upload/v1771959013/WhatsApp_Image_2026-02-25_at_00.19.56_hpypo9.jpg"
-                        alt={`${subject.name} cover`}
-                    />
+                <div className="w-full relative rounded-2xl overflow-hidden shadow-sm border border-border bg-surface flex items-center justify-center aspect-[4/3] md:min-h-[300px]">
+                    {subject.syllabus_image_url ? (
+                        <ImageModal
+                            src={subject.syllabus_image_url}
+                            alt={`${subject.name} cover`}
+                            className="w-full h-full absolute inset-0"
+                            imgClassName="!object-cover"
+                        />
+                    ) : (
+                        <div className="flex flex-col items-center justify-center text-slate-500 py-12">
+                            <BookOpen size={48} className="mb-4 opacity-20" />
+                            <p className="text-sm">No cover image provided</p>
+                        </div>
+                    )}
                 </div>
 
                 {/* Info Section */}
@@ -170,6 +189,67 @@ export default async function SubjectPage({ params }: { params: Promise<{ slug: 
                     </div>
                 </div>
             </section>
+
+            {/* Materials and Resources Section */}
+            {subject.materials && subject.materials.length > 0 && (
+                <section className="space-y-6 pt-8 mt-8 border-t border-border">
+                    <h2 className="text-3xl font-bold text-white mb-6">Learning Resources</h2>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {subject.materials.map((mat, idx) => (
+                            <a
+                                key={idx}
+                                href={mat.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="glass-panel p-6 flex items-center justify-between group hover:-translate-y-1 transition-transform border-none shadow-sm bg-surface cursor-pointer ring-1 ring-white/5 hover:ring-primary/50"
+                            >
+                                <div className="space-y-1 overflow-hidden pr-4">
+                                    <h3 className="font-semibold text-white truncate text-lg group-hover:text-primary transition-colors">{mat.title}</h3>
+                                    <p className="text-sm text-slate-400 capitalize">{mat.type}</p>
+                                </div>
+                                <div className="w-10 h-10 shrink-0 bg-surface-hover rounded-full flex items-center justify-center text-slate-400 group-hover:text-primary group-hover:bg-primary/10 transition-colors">
+                                    <BookOpen size={18} />
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                </section>
+            )}
+
+            {/* PYQ Images Section */}
+            {(subject.midsem_pyq_url || subject.endsem_pyq_url) && (
+                <section className="space-y-6 pt-8 mt-8 border-t border-border">
+                    <h2 className="text-3xl font-bold text-white mb-6 text-center">Previous Year Questions</h2>
+                    <div className="grid md:grid-cols-2 gap-8">
+                        {subject.midsem_pyq_url && (
+                            <div className="space-y-4">
+                                <h3 className="text-xl font-bold text-slate-300 text-center">Midsem PYQ</h3>
+                                <div className="w-full relative rounded-2xl overflow-hidden shadow-sm border border-border bg-surface flex items-center justify-center aspect-square md:aspect-[4/3]">
+                                    <ImageModal
+                                        src={subject.midsem_pyq_url}
+                                        alt={`${subject.name} Midsem PYQ`}
+                                        className="w-full h-full absolute inset-0"
+                                        imgClassName="!object-cover"
+                                    />
+                                </div>
+                            </div>
+                        )}
+                        {subject.endsem_pyq_url && (
+                            <div className="space-y-4">
+                                <h3 className="text-xl font-bold text-slate-300 text-center">Endsem PYQ</h3>
+                                <div className="w-full relative rounded-2xl overflow-hidden shadow-sm border border-border bg-surface flex items-center justify-center aspect-square md:aspect-[4/3]">
+                                    <ImageModal
+                                        src={subject.endsem_pyq_url}
+                                        alt={`${subject.name} Endsem PYQ`}
+                                        className="w-full h-full absolute inset-0"
+                                        imgClassName="!object-cover"
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </section>
+            )}
 
             {/* Author Section */}
             {subject.authors && subject.authors.length > 0 && (

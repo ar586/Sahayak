@@ -1,5 +1,6 @@
 import { BookOpen, TrendingUp, Clock, ShieldAlert } from "lucide-react";
 import Link from "next/link";
+import SearchBar from "@/components/SearchBar";
 
 interface Course {
   course_id: string;
@@ -25,14 +26,20 @@ interface Subject {
   };
 }
 
-async function getSubjects(): Promise<Subject[]> {
-  const res = await fetch("http://127.0.0.1:8000/subjects", { cache: "no-store" });
+async function getSubjects(search?: string): Promise<Subject[]> {
+  const url = search
+    ? `http://127.0.0.1:8000/subjects?search=${encodeURIComponent(search)}`
+    : "http://127.0.0.1:8000/subjects";
+
+  const res = await fetch(url, { cache: "no-store" });
   if (!res.ok) return [];
   return res.json();
 }
 
-export default async function Home() {
-  const subjects = await getSubjects();
+export default async function Home({ searchParams }: { searchParams: Promise<{ search?: string }> }) {
+  const resolvedParams = await searchParams;
+  const search = resolvedParams?.search;
+  const subjects = await getSubjects(search);
 
   return (
     <div className="space-y-16 py-8">
@@ -48,16 +55,19 @@ export default async function Home() {
           <Link href="#subjects" className="btn-primary text-lg">
             Browse Subjects
           </Link>
-          <Link href="/editor" className="btn-outline text-lg">
+          <Link href="/contribute" className="btn-outline text-lg">
             Contribute
           </Link>
+        </div>
+        <div className="mt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <SearchBar />
         </div>
       </section>
 
       <section id="subjects" className="space-y-8">
-        <div className="flex items-center justify-between pb-2 border-b border-border">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-border">
           <h2 className="text-3xl font-bold flex items-center gap-3 text-white">
-            <BookOpen className="text-primary" /> Available Subjects
+            <BookOpen className="text-primary" /> {search ? `Search Results for "${search}"` : "Available Subjects"}
           </h2>
         </div>
 

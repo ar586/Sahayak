@@ -6,21 +6,23 @@ import { X, Maximize2 } from "lucide-react";
 interface ImageModalProps {
     src: string;
     alt: string;
+    className?: string;
+    imgClassName?: string;
 }
 
-export default function ImageModal({ src, alt }: ImageModalProps) {
+export default function ImageModal({ src, alt, className = "", imgClassName = "" }: ImageModalProps) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
         <>
             <div
-                className="w-full relative group cursor-pointer overflow-hidden rounded-2xl"
+                className={`w-full relative group cursor-pointer overflow-hidden rounded-2xl ${className}`}
                 onClick={() => setIsOpen(true)}
             >
                 <img
                     src={src}
                     alt={alt}
-                    className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                    className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${imgClassName}`}
                 />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <Maximize2 className="text-white w-8 h-8 drop-shadow-lg" />

@@ -8,10 +8,20 @@ router = APIRouter(prefix="/admin", tags=["Admin"])
 
 
 def serialize(doc: dict) -> dict:
-    doc["id"] = str(doc.pop("_id"))
-    for author in doc.get("authors", []):
-        if isinstance(author.get("user_id"), ObjectId):
-            author["user_id"] = str(author["user_id"])
+    doc["id"] = str(doc.pop("_id", ""))
+    
+    # Safely serialize authors if they exist
+    if "authors" in doc and isinstance(doc["authors"], list):
+        for author in doc["authors"]:
+            if isinstance(author, dict) and "user_id" in author and isinstance(author["user_id"], ObjectId):
+                author["user_id"] = str(author["user_id"])
+                
+    # Safely serialize other ObjectIds
+    if "submitted_by" in doc and isinstance(doc["submitted_by"], ObjectId):
+        doc["submitted_by"] = str(doc["submitted_by"])
+    if "reviewed_by" in doc and isinstance(doc["reviewed_by"], ObjectId):
+        doc["reviewed_by"] = str(doc["reviewed_by"])
+        
     return doc
 
 
@@ -85,3 +95,6 @@ async def update_user_role(user_id: str, role: str, current_user: dict = Depends
     if result.matched_count == 0:
         raise HTTPException(status_code=404, detail="User not found")
     return {"message": f"Role updated to {role}"}
+
+
+

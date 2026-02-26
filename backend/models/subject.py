@@ -18,6 +18,12 @@ class AuthorRef(BaseModel):
     display_name: str
 
 
+class Material(BaseModel):
+    title: str = ""
+    url: str = ""
+    type: Literal["video", "document", "link"] = "link"
+
+
 class Overview(BaseModel):
     overall_difficulty: Literal["easy", "moderate", "hard"] = "moderate"
     nature_type: Literal["theory", "practical", "mixed"] = "mixed"
@@ -61,6 +67,9 @@ class SubjectCreate(BaseModel):
     midsem_strategy: str = ""
     endsem_strategy: str = ""
     syllabus_image_url: str = ""
+    midsem_pyq_url: str = ""
+    endsem_pyq_url: str = ""
+    materials: List[Material] = []
 
 
 class SubjectUpdate(BaseModel):
@@ -73,6 +82,9 @@ class SubjectUpdate(BaseModel):
     midsem_strategy: Optional[str] = None
     endsem_strategy: Optional[str] = None
     syllabus_image_url: Optional[str] = None
+    midsem_pyq_url: Optional[str] = None
+    endsem_pyq_url: Optional[str] = None
+    materials: Optional[List[Material]] = None
 
 
 class SubjectOut(BaseModel):
@@ -88,6 +100,9 @@ class SubjectOut(BaseModel):
     midsem_strategy: str
     endsem_strategy: str
     syllabus_image_url: str
+    midsem_pyq_url: str = ""
+    endsem_pyq_url: str = ""
+    materials: List[Material] = []
     is_published: bool
     submitted_by: Optional[PyObjectId] = None
     reviewed_by: Optional[PyObjectId] = None
