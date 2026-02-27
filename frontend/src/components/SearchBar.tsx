@@ -19,22 +19,18 @@ export default function SearchBar() {
     };
 
     return (
-        <form onSubmit={handleSearch} className="flex w-full max-w-xl mx-auto items-center mt-8">
-            <div className="relative w-full">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
-                    <Search size={20} />
-                </div>
-                <input
-                    type="text"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    className="bg-surface border border-border text-white text-base rounded-xl focus:ring-primary focus:border-primary block w-full outline-none pl-12 p-3.5 shadow-sm transition-all"
-                    placeholder="Search by subject name..."
-                />
+        <form onSubmit={handleSearch} className="flex w-full max-w-2xl mx-auto items-center mt-8 relative group">
+            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+                <Search className="w-5 h-5 text-academic-green/40" />
             </div>
-            <button type="submit" className="ml-3 btn-primary py-[15px] px-6 shadow-sm font-medium whitespace-nowrap hidden sm:block">
-                Search
-            </button>
+            <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="w-full bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 border-academic-green/30 py-4 pl-12 pr-4 focus:ring-0 focus:border-academic-green placeholder:italic placeholder:text-academic-green/40 text-lg transition-all text-academic-green outline-none"
+                placeholder="Search for subjects, course codes, or notes..."
+            />
+            {/* The enter key automatically submits the form, no button needed for this wide vintage style */}
         </form>
     );
 }

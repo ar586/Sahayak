@@ -1,82 +1,157 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/container-queries";
 
 @theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: #3b82f6;
-  /* Brighter Blue for Dark Mode */
-  --color-primary-hover: #60a5fa;
-  --color-secondary: #10b981;
-  /* Emerald Green */
-  --color-surface: #1e293b;
-  /* Slate 800 */
-  --color-surface-hover: #334155;
-  /* Slate 700 */
-  --color-border: #334155;
-  /* Slate 700 */
+  --color-primary: #1a4231;
+  /* Forest Green */
+  --color-accent: #b8924e;
+  /* Gold */
+  --color-accent-navy: #1a2a44;
+  --color-parchment: #fdfaf3;
+  /* Cream parchment */
+  --color-surface: #ffffff;
+  --color-surface-hover: #f5f0e1;
+  --color-border: #d1c7b7;
+
+  --color-academic-green: #1a4231;
+  --color-academic-gold: #b8924e;
+  --color-academic-cream: #fdfaf1;
+  --color-academic-parchment: #f5f0e1;
+
+  --font-serif: var(--font-newsreader), var(--font-playfair), var(--font-noto-serif), serif;
+  --font-sans: var(--font-public-sans), sans-serif;
+  --font-display: var(--font-playfair), serif;
+
+  --radius-custom: 4px;
 }
 
 @layer base {
   :root {
-    --background: #0f172a;
-    /* Slate 900 */
-    --foreground: #f8fafc;
-    /* Slate 50 */
+    --background: #fdfaf3;
+    --foreground: #1a4231;
   }
 
   body {
     background-color: var(--background);
     color: var(--foreground);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 }
 
 @layer components {
+
+  /* Common UI Elements */
+  .parchment-texture {
+    background-color: #fdfaf3;
+    background-image: radial-gradient(#e5e1d8 0.5px, transparent 0.5px);
+    background-size: 24px 24px;
+  }
+
+  .library-card-shadow {
+    box-shadow: 5px 5px 0 0 rgba(26, 66, 49, 0.1);
+  }
+
+  .vintage-border {
+    border: 1px solid var(--color-academic-green);
+    position: relative;
+  }
+
+  .vintage-border::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    border: 1px solid var(--color-academic-gold);
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .drop-cap::first-letter {
+    float: left;
+    font-size: 3.5rem;
+    line-height: 0.8;
+    padding-top: 4px;
+    padding-right: 8px;
+    padding-left: 3px;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .justified-text {
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+  .ornament {
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+
+  .ornament::before,
+  .ornament::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--color-primary);
+    opacity: 0.3;
+  }
+
+  .ornament:not(:empty)::before {
+    margin-right: 1rem;
+  }
+
+  .ornament:not(:empty)::after {
+    margin-left: 1rem;
+  }
+
+  .encyclopedia-card {
+    border: 1px solid var(--color-border);
+    background: #fff;
+    transition: all 0.3s ease;
+  }
+
+  .encyclopedia-card:hover {
+    background: var(--color-parchment);
+  }
+
+  .archive-frame {
+    border: 8px double var(--color-primary);
+    padding: 4px;
+    background: #fff;
+  }
+
+  .ledger-line {
+    border-bottom: 1px solid rgba(45, 74, 62, 0.1);
+  }
+
+  /* Buttons & Forms (Legacy overrides for compatibility during transition) */
   .glass-panel {
-    @apply bg-surface border border-border rounded-xl shadow-sm transition-all;
+    border: 1px solid var(--color-border);
+    background: #fff;
+    border-radius: var(--radius-custom);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
   }
 
   .glass-panel:hover {
-    @apply border-slate-500 shadow-md transform -translate-y-0.5;
+    background: var(--color-parchment);
   }
 
   .btn-primary {
-    @apply bg-primary hover:bg-primary-hover text-white font-medium py-2.5 px-5 rounded-lg transition-colors shadow-sm;
+    @apply bg-primary hover:bg-academic-green text-white font-bold py-2.5 px-6 rounded-custom transition-colors border-b-4 border-academic-gold hover:border-b shadow-sm;
   }
 
   .btn-outline {
-    @apply bg-transparent border-2 border-primary text-primary-hover hover:bg-primary/10 font-medium py-2 px-5 rounded-lg transition-colors;
+    @apply bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold py-2 px-6 rounded-custom transition-colors;
   }
 
   .badge {
-    @apply px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide border;
-  }
-
-  /* Make markdown text highly visible in dark mode */
-  .prose {
-    color: var(--color-foreground);
-  }
-
-  .prose p,
-  .prose ul,
-  .prose ol,
-  .prose li {
-    color: #cbd5e1 !important;
-    /* slate-300 */
-  }
-
-  .prose h1,
-  .prose h2,
-  .prose h3,
-  .prose h4,
-  .prose strong {
-    color: #ffffff !important;
-  }
-
-  .prose hr {
-    @apply border-slate-700 my-6;
+    @apply px-2.5 py-0.5 rounded-custom text-xs font-semibold tracking-wide border border-primary/20 bg-primary/10 text-primary;
   }
 }

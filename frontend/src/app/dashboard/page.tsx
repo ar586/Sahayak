@@ -59,99 +59,120 @@ export default function UserDashboardPage() {
     const pendingCount = subjects.filter(s => !s.is_published).length;
 
     return (
-        <div className="max-w-7xl mx-auto py-12 px-4 space-y-12">
+        <div className="max-w-[1200px] mx-auto px-4 md:px-8 py-10 flex flex-col md:flex-row gap-10 mt-4 text-academic-green pb-24">
 
-            {/* Header section */}
-            <header className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-border">
-                <div>
-                    <h1 className="text-4xl font-bold text-white mb-2">My Dashboard</h1>
-                    <p className="text-slate-400">Welcome back, {user?.display_name}. Track your contributions here.</p>
-                </div>
-                <Link href="/contribute" className="btn-primary text-sm py-2.5 px-6 self-start md:self-auto">
-                    + Contribute New Subject
-                </Link>
-            </header>
+            {/* Left Sidebar */}
+            <aside className="w-full md:w-1/4 shrink-0 space-y-8">
+                {/* Profile Card */}
+                <div className="encyclopedia-card p-6 text-center shadow-sm rounded border border-border">
+                    <div className="w-20 h-20 bg-academic-parchment border-2 border-academic-gold/50 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <span className="text-3xl font-serif text-academic-gold italic">{user?.display_name?.charAt(0).toUpperCase() || "S"}</span>
+                    </div>
+                    <h2 className="text-xl font-bold font-serif mb-1">{user?.display_name}</h2>
+                    <p className="text-[10px] uppercase tracking-widest text-slate-500 font-sans font-bold">Contributor</p>
 
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="glass-panel p-6 rounded-2xl flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-full bg-primary/20 text-primary flex items-center justify-center">
-                        <BookOpen size={28} />
-                    </div>
-                    <div>
-                        <p className="text-sm font-medium text-slate-400">Total Contributions</p>
-                        <p className="text-3xl font-bold text-white">{subjects.length}</p>
-                    </div>
-                </div>
-                <div className="glass-panel p-6 rounded-2xl flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center">
-                        <CheckCircle size={28} />
-                    </div>
-                    <div>
-                        <p className="text-sm font-medium text-slate-400">Published</p>
-                        <p className="text-3xl font-bold text-white">{publishedCount}</p>
-                    </div>
-                </div>
-                <div className="glass-panel p-6 rounded-2xl flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-full bg-amber-500/20 text-amber-500 flex items-center justify-center">
-                        <Clock size={28} />
-                    </div>
-                    <div>
-                        <p className="text-sm font-medium text-slate-400">Pending Review</p>
-                        <p className="text-3xl font-bold text-white">{pendingCount}</p>
-                    </div>
-                </div>
-            </div>
-
-            {/* Contributions List */}
-            <section>
-                <h2 className="text-2xl font-bold text-white mb-6">Subject Submissions</h2>
-
-                {subjects.length === 0 ? (
-                    <div className="glass-panel p-12 rounded-2xl text-center text-slate-400">
-                        <p className="text-lg mb-4">You haven't contributed any subjects yet.</p>
-                        <Link href="/contribute" className="text-primary hover:text-primary-hover font-medium transition-colors">
-                            Start your first contribution →
+                    <div className="mt-6 pt-6 border-t border-border">
+                        <Link href="/contribute" className="w-full block text-center border-2 border-academic-green bg-academic-green text-academic-parchment hover:bg-transparent hover:text-academic-green py-2.5 font-bold uppercase tracking-widest text-[10px] transition-all rounded shadow-sm">
+                            + Contribute Entry
                         </Link>
                     </div>
-                ) : (
-                    <div className="grid grid-cols-1 gap-6">
-                        {subjects.map((subject) => (
-                            <div key={subject.id} className="glass-panel p-6 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                <div>
-                                    <div className="flex items-center gap-3 mb-2">
-                                        <h3 className="text-xl font-bold text-white">{subject.name}</h3>
-                                        {subject.is_published ? (
-                                            <span className="badge bg-green-500/10 text-green-500 border-green-500/20">Published</span>
-                                        ) : (
-                                            <span className="badge bg-amber-500/10 text-amber-500 border-amber-500/20">In Review</span>
-                                        )}
-                                    </div>
-                                    <p className="text-sm text-slate-400 flex items-center gap-3">
-                                        <span>Course: {subject.course?.course_id}</span>
-                                        <span>•</span>
-                                        <span>Submitted: {new Date(subject.created_at).toLocaleDateString()}</span>
-                                    </p>
-                                </div>
-                                <div className="flex gap-3 mt-4 md:mt-0">
-                                    {subject.is_published && (
-                                        <Link href={`/subjects/${subject.slug}`} className="btn-outline text-sm py-2 px-4 shadow-sm border-slate-600 hover:border-slate-500 text-white">
-                                            View Public Page
-                                        </Link>
-                                    )}
-                                    <button
-                                        onClick={() => handleDelete(subject.id)}
-                                        className="btn-outline text-sm py-2 px-4 shadow-sm border-red-900/50 hover:border-red-500 hover:text-red-500 text-slate-300 transition-colors"
-                                    >
-                                        Delete
-                                    </button>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
-            </section>
+                </div>
 
+                {/* Navigation Menu */}
+                <nav className="hidden md:block encyclopedia-card p-4 shadow-sm rounded border border-border">
+                    <ul className="space-y-1 font-serif">
+                        <li>
+                            <Link href="#" className="flex items-center gap-3 px-4 py-2.5 bg-academic-parchment text-academic-gold font-bold italic rounded">
+                                <BookOpen size={18} /> Overview
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="#ledger" className="flex items-center gap-3 px-4 py-2.5 hover:bg-academic-parchment/50 text-academic-green hover:text-academic-gold rounded transition-colors group">
+                                <CheckCircle size={18} className="opacity-50 group-hover:opacity-100" /> Submissions
+                            </Link>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+
+            {/* Main Content Area */}
+            <main className="flex-1 w-full">
+
+                <header className="mb-10 pb-6 border-b-2 border-academic-gold/30 flex flex-col items-center text-center">
+                    <p className="uppercase tracking-widest text-xs mb-2 opacity-70 font-sans font-bold">Personal Archives</p>
+                    <h1 className="text-4xl md:text-5xl font-extrabold font-display">Scholar Dashboard</h1>
+                </header>
+
+                {/* Stats Blocks */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
+                    <div className="encyclopedia-card p-6 font-serif shadow-sm rounded border border-border relative overflow-hidden group">
+                        <div className="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity"><BookOpen size={100} /></div>
+                        <h3 className="text-sm font-sans uppercase font-bold tracking-widest text-slate-500 mb-2">Total Contributions</h3>
+                        <p className="text-4xl text-academic-gold font-bold italic">{subjects.length}</p>
+                    </div>
+                    <div className="encyclopedia-card p-6 font-serif shadow-sm rounded border border-border relative overflow-hidden group">
+                        <div className="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity"><CheckCircle size={100} /></div>
+                        <h3 className="text-sm font-sans uppercase font-bold tracking-widest text-slate-500 mb-2">Published</h3>
+                        <p className="text-4xl text-academic-green font-bold italic">{publishedCount}</p>
+                    </div>
+                    <div className="encyclopedia-card p-6 font-serif shadow-sm rounded border border-border relative overflow-hidden group bg-academic-parchment/30">
+                        <div className="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity"><Clock size={100} /></div>
+                        <h3 className="text-sm font-sans uppercase font-bold tracking-widest text-slate-500 mb-2">Pending Review</h3>
+                        <p className="text-4xl text-slate-700 font-bold italic">{pendingCount}</p>
+                    </div>
+                </div>
+
+                {/* Ledger / Table */}
+                <section id="ledger" className="font-serif">
+                    <h2 className="text-2xl font-bold mb-6 italic text-academic-gold font-serif">Contribution Ledger</h2>
+
+                    <div className="bg-white border-2 border-academic-green shadow-sm overflow-hidden vintage-border rounded">
+                        <div className="overflow-x-auto">
+                            {subjects.length === 0 ? (
+                                <div className="p-12 text-center text-slate-500 bg-academic-parchment/20">
+                                    <p className="text-lg italic mb-4 font-serif">Your ledger is currently empty.</p>
+                                    <Link href="/contribute" className="text-academic-gold border-b border-academic-gold font-bold uppercase tracking-widest text-xs font-sans hover:text-academic-green transition-colors">Begin Your First Entry</Link>
+                                </div>
+                            ) : (
+                                <table className="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr className="bg-academic-green text-academic-parchment text-[10px] uppercase font-bold tracking-widest font-sans border-b-2 border-academic-gold">
+                                            <th className="p-4 font-normal">Document Title</th>
+                                            <th className="p-4 font-normal">Course Code</th>
+                                            <th className="p-4 font-normal">Date Submitted</th>
+                                            <th className="p-4 font-normal">Status</th>
+                                            <th className="p-4 font-normal text-right">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-academic-green/10 bg-white text-sm">
+                                        {subjects.map((subject) => (
+                                            <tr key={subject.id} className="hover:bg-academic-parchment/30 transition-colors">
+                                                <td className="p-4 font-bold italic text-academic-gold text-base">{subject.name}</td>
+                                                <td className="p-4 font-sans font-bold uppercase text-[10px] tracking-widest text-slate-500">{subject.course?.course_id}</td>
+                                                <td className="p-4 text-slate-600">{new Date(subject.created_at).toLocaleDateString()}</td>
+                                                <td className="p-4">
+                                                    {subject.is_published ? (
+                                                        <span className="px-2 py-1 bg-green-100 text-green-800 border border-green-200 rounded font-sans uppercase font-bold text-[9px] tracking-wider">Published</span>
+                                                    ) : (
+                                                        <span className="px-2 py-1 bg-amber-100 text-amber-800 border border-amber-200 rounded font-sans uppercase font-bold text-[9px] tracking-wider">Pending</span>
+                                                    )}
+                                                </td>
+                                                <td className="p-4 text-right space-x-3">
+                                                    {subject.is_published && (
+                                                        <Link href={`/subjects/${subject.slug}`} className="text-[10px] font-sans uppercase font-bold tracking-widest text-academic-green hover:border-b hover:border-academic-green transition-all">View</Link>
+                                                    )}
+                                                    <button onClick={() => handleDelete(subject.id)} className="text-[10px] font-sans uppercase font-bold tracking-widest text-red-700/70 hover:text-red-700 hover:border-b hover:border-red-700 transition-all">Withdraw</button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            )}
+                        </div>
+                    </div>
+                </section>
+
+            </main>
         </div>
     );
 }

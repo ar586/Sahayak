@@ -6,13 +6,13 @@ import { useRouter } from "next/navigation";
 
 const InputField = ({ label, value, onChange, placeholder, type = "text", required = true }: any) => (
     <div>
-        <label className="block text-sm font-medium text-slate-300 mb-1">{label}</label>
+        <label className="block font-sans uppercase text-[10px] tracking-widest font-bold text-slate-500 mb-1">{label}</label>
         <input
             type={type}
             required={required}
             value={value}
             onChange={onChange}
-            className="w-full bg-surface-hover/50 border border-border rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-mono text-sm"
+            className="w-full bg-academic-parchment/30 border-b-2 border-academic-gold/30 px-4 py-3 text-academic-green focus:outline-none focus:border-academic-green transition-colors font-serif placeholder-slate-400"
             placeholder={placeholder}
         />
     </div>
@@ -20,14 +20,14 @@ const InputField = ({ label, value, onChange, placeholder, type = "text", requir
 
 const SelectField = ({ label, value, onChange, options }: any) => (
     <div>
-        <label className="block text-sm font-medium text-slate-300 mb-1">{label}</label>
+        <label className="block font-sans uppercase text-[10px] tracking-widest font-bold text-slate-500 mb-1">{label}</label>
         <select
             value={value}
             onChange={onChange}
-            className="w-full bg-surface-hover/50 border border-border rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-mono text-sm capitalize"
+            className="w-full bg-academic-parchment/30 border-b-2 border-academic-gold/30 px-4 py-3 text-academic-green focus:outline-none focus:border-academic-green transition-colors font-serif capitalize"
         >
             {options.map((opt: string) => (
-                <option key={opt} value={opt} className="bg-surface text-white capitalize">{opt}</option>
+                <option key={opt} value={opt} className="bg-white text-academic-green capitalize">{opt}</option>
             ))}
         </select>
     </div>
@@ -36,15 +36,15 @@ const SelectField = ({ label, value, onChange, options }: any) => (
 const TextAreaField = ({ label, value, onChange, placeholder, rows = 4, helpText = "" }: any) => (
     <div>
         <div className="flex justify-between items-end mb-1">
-            <label className="block text-sm font-medium text-slate-300">{label}</label>
-            {helpText && <span className="text-xs text-slate-500">{helpText}</span>}
+            <label className="block font-sans uppercase text-[10px] tracking-widest font-bold text-slate-500">{label}</label>
+            {helpText && <span className="text-[10px] text-slate-400 uppercase tracking-widest font-sans">{helpText}</span>}
         </div>
         <textarea
             required
             rows={rows}
             value={value}
             onChange={onChange}
-            className="w-full bg-surface-hover/50 border border-border rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm font-mono resize-y"
+            className="w-full bg-academic-parchment/30 border-b-2 border-academic-gold/30 px-4 py-3 text-academic-green focus:outline-none focus:border-academic-green transition-colors font-serif resize-none placeholder-slate-400"
             placeholder={placeholder}
         />
     </div>
@@ -216,196 +216,203 @@ export default function ContributeSubjectPage() {
 
     if (success) {
         return (
-            <div className="max-w-2xl mx-auto mt-20 p-8 glass-panel rounded-2xl text-center">
-                <h2 className="text-3xl font-bold text-green-400 mb-4">Subject Submitted!</h2>
-                <p className="text-slate-300">
-                    Thank you for contributing to Sahayak! Your subject guide is currently pending review by an admin.
-                    Once approved, it will appear on the homepage.
+            <div className="max-w-[800px] mx-auto px-4 py-20 text-center text-academic-green mt-12 mb-24 encyclopedia-card shadow-sm rounded border border-border">
+                <div className="w-16 h-16 mx-auto mb-6 bg-green-100 text-green-700 flex items-center justify-center rounded-full border border-green-200">
+                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h2 className="text-4xl font-extrabold font-display mb-4">Contribution Received</h2>
+                <p className="text-lg font-serif italic mb-8 max-w-xl mx-auto">
+                    Your scholastic entry has been submitted to the archives. It is currently pending review by a curator and will be published upon approval.
                 </p>
-                <button onClick={() => router.push("/")} className="mt-8 btn-primary px-6 py-2">
-                    Back to Home
-                </button>
+                <div className="flex justify-center">
+                    <button onClick={() => router.push("/dashboard")} className="border-2 border-academic-green bg-academic-green text-academic-parchment hover:bg-transparent hover:text-academic-green px-8 py-3 font-bold uppercase tracking-widest text-xs transition-all rounded shadow-sm inline-block">
+                        Return to Ledger
+                    </button>
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="max-w-4xl mx-auto py-8 px-4">
-            <div className="mb-8">
-                <h1 className="text-3xl font-bold text-white mb-2">Contribute a Subject</h1>
-                <p className="text-slate-400">Share your complete, unit-by-unit guide to help others ace this subject.</p>
-            </div>
+        <div className="max-w-[800px] mx-auto px-4 py-12 text-academic-green pb-24">
+
+            <header className="mb-10 pb-6 border-b-2 border-academic-gold/30 flex flex-col items-center text-center">
+                <p className="uppercase tracking-widest text-xs mb-2 opacity-70 font-sans font-bold">New Archive Entry</p>
+                <h1 className="text-4xl md:text-5xl font-extrabold font-display">Scholarly Submission</h1>
+            </header>
 
             {error && (
-                <div className="bg-red-500/10 border border-red-500/20 text-red-500 p-4 rounded-lg mb-6">
-                    {error}
+                <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-8 font-serif italic flex items-start">
+                    <svg className="w-5 h-5 mr-3 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <p>{error}</p>
                 </div>
             )}
 
             {/* Progress Bar */}
             <div className="flex gap-2 mb-8">
                 {[1, 2, 3, 4, 5].map((i) => (
-                    <div key={i} className={`h-2 flex-1 rounded-full ${step >= i ? 'bg-primary' : 'bg-surface-hover'}`} />
+                    <div key={i} className={`h-2 flex-1 rounded-sm ${step >= i ? 'bg-academic-green' : 'bg-slate-200 border border-border'}`} />
                 ))}
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-8 glass-panel p-8 rounded-2xl">
+            <form onSubmit={handleSubmit} className="encyclopedia-card p-6 md:p-10 shadow-sm rounded border border-border bg-white">
                 {step === 1 && (
                     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4">
-                        <h2 className="text-2xl font-bold text-white border-b border-border pb-3">1. Basic Information</h2>
+                        <h2 className="text-2xl font-bold font-serif italic text-academic-gold border-b-2 border-academic-green/20 pb-2 mb-6">Article I: Nomenclature & Origin</h2>
                         <div className="grid md:grid-cols-2 gap-6">
                             <InputField label="Subject Name" value={name} onChange={(e: any) => setName(e.target.value)} placeholder="e.g. Probability and Statistics" />
                             <InputField label="URL Slug" value={slug} onChange={(e: any) => setSlug(e.target.value.toLowerCase().replace(/\s+/g, '-'))} placeholder="probability-and-statistics" />
-                            <InputField label="Course ID" value={course.course_id} onChange={(e: any) => setCourse({ ...course, course_id: e.target.value })} placeholder="e.g. MA301" />
-                            <InputField label="Course Name" value={course.course_name} onChange={(e: any) => setCourse({ ...course, course_name: e.target.value })} placeholder="e.g. B.Tech" />
-                            <InputField label="Department" value={course.department} onChange={(e: any) => setCourse({ ...course, department: e.target.value })} placeholder="e.g. CSE" />
+                            <InputField label="Course Identifier" value={course.course_id} onChange={(e: any) => setCourse({ ...course, course_id: e.target.value })} placeholder="e.g. MA301" />
+                            <InputField label="Program Name" value={course.course_name} onChange={(e: any) => setCourse({ ...course, course_name: e.target.value })} placeholder="e.g. B.Tech" />
+                            <InputField label="Department" value={course.department} onChange={(e: any) => setCourse({ ...course, department: e.target.value })} placeholder="e.g. Computer Science" />
                             <InputField label="Semester" type="number" value={course.semester.toString()} onChange={(e: any) => setCourse({ ...course, semester: parseInt(e.target.value) || 1 })} placeholder="3" />
                         </div>
-                        <InputField label="Banner Image URL" required={false} value={syllabusImageUrl} onChange={(e: any) => setSyllabusImageUrl(e.target.value)} placeholder="https://example.com/image.jpg" />
+                        <InputField label="Illuminating Engraving (Banner URL)" required={false} value={syllabusImageUrl} onChange={(e: any) => setSyllabusImageUrl(e.target.value)} placeholder="https://example.com/illustration.jpg" />
                     </div>
                 )}
 
                 {step === 2 && (
                     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4">
-                        <h2 className="text-2xl font-bold text-white border-b border-border pb-3">2. Overview & Difficulty</h2>
+                        <h2 className="text-2xl font-bold font-serif italic text-academic-gold border-b-2 border-academic-green/20 pb-2 mb-6">Article II: Scholarly Metrics</h2>
                         <div className="grid md:grid-cols-2 gap-6">
                             <SelectField label="Overall Difficulty" value={overview.overall_difficulty} onChange={(e: any) => setOverview({ ...overview, overall_difficulty: e.target.value })} options={['easy', 'moderate', 'hard']} />
-                            <SelectField label="Nature of Subject" value={overview.nature_type} onChange={(e: any) => setOverview({ ...overview, nature_type: e.target.value })} options={['theory', 'practical', 'mixed']} />
-                            <SelectField label="Time Required to Prep" value={overview.time_required} onChange={(e: any) => setOverview({ ...overview, time_required: e.target.value })} options={['low', 'medium', 'high']} />
+                            <SelectField label="Nature of Study" value={overview.nature_type} onChange={(e: any) => setOverview({ ...overview, nature_type: e.target.value })} options={['theory', 'practical', 'mixed']} />
+                            <SelectField label="Time Engagement" value={overview.time_required} onChange={(e: any) => setOverview({ ...overview, time_required: e.target.value })} options={['low', 'medium', 'high']} />
                             <SelectField label="Scoring Potential" value={overview.scoring_potential} onChange={(e: any) => setOverview({ ...overview, scoring_potential: e.target.value })} options={['low', 'medium', 'high']} />
-                            <SelectField label="Risk Level (Chance of failing)" value={overview.risk_level} onChange={(e: any) => setOverview({ ...overview, risk_level: e.target.value })} options={['low', 'moderate', 'high']} />
+                            <SelectField label="Risk Factor (Chance of failing)" value={overview.risk_level} onChange={(e: any) => setOverview({ ...overview, risk_level: e.target.value })} options={['low', 'moderate', 'high']} />
                         </div>
                     </div>
                 )}
 
                 {step === 3 && (
-                    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4">
-                        <h2 className="text-2xl font-bold text-white border-b border-border pb-3">3. Introduction & Tips</h2>
-                        <TextAreaField label="About the Subject" value={intro.about_subject} onChange={(e: any) => setIntro({ ...intro, about_subject: e.target.value })} placeholder="Briefly describe what this subject is about and its reputation..." />
-                        <TextAreaField label="General Tips" value={intro.general_tips} onChange={(e: any) => setIntro({ ...intro, general_tips: e.target.value })} placeholder="What's the best way to study for this? e.g. 'Practice PYQs heavily'" />
-                        <TextAreaField label="Things to Keep in Mind" value={intro.things_to_keep_in_mind} onChange={(e: any) => setIntro({ ...intro, things_to_keep_in_mind: e.target.value })} placeholder="Crucial warnings. e.g. 'Do not skip unit 4, it carries 40% weightage.'" />
+                    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4">
+                        <h2 className="text-2xl font-bold font-serif italic text-academic-gold border-b-2 border-academic-green/20 pb-2 mb-6">Article III: Treatise Overview</h2>
+                        <TextAreaField label="Subject Abstract" value={intro.about_subject} onChange={(e: any) => setIntro({ ...intro, about_subject: e.target.value })} placeholder="Provide a scholarly synopsis of the subject matter..." />
+                        <TextAreaField label="Scholastic Wisdom (Tips)" value={intro.general_tips} onChange={(e: any) => setIntro({ ...intro, general_tips: e.target.value })} placeholder="What pedagogical approach yields best results? e.g. 'Consistent practice of foundational lemmas is paramount.'" />
+                        <TextAreaField label="Caveats & Warnings" value={intro.things_to_keep_in_mind} onChange={(e: any) => setIntro({ ...intro, things_to_keep_in_mind: e.target.value })} placeholder="Crucial warnings. e.g. 'Beware ignoring the fourth syllabus division; it forms the examination's foundation.'" />
                     </div>
                 )}
 
                 {step === 4 && (
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4">
-                        <h2 className="text-2xl font-bold text-white border-b border-border pb-3">4. Unit Breakdowns</h2>
+                        <h2 className="text-2xl font-bold font-serif italic text-academic-gold border-b-2 border-academic-green/20 pb-2 mb-6">Article IV: Curriculum Breakdown</h2>
 
                         {units.map((unit, uIdx) => (
-                            <div key={uIdx} className="p-6 bg-surface border border-border rounded-xl space-y-6">
-                                <div className="flex justify-between items-center mb-4">
-                                    <h3 className="text-xl font-bold text-white">Unit {unit.unit_number}</h3>
+                            <div key={uIdx} className="p-6 bg-academic-parchment/20 border border-academic-gold/30 rounded-lg space-y-6 vintage-border shadow-sm">
+                                <div className="flex justify-between items-end border-b border-academic-gold/20 pb-2 mb-4">
+                                    <h3 className="text-xl font-bold font-serif italic text-academic-green">Chapter {unit.unit_number}</h3>
                                     {units.length > 1 && (
-                                        <button type="button" onClick={() => setUnits(units.filter((_, i) => i !== uIdx))} className="text-red-400 text-sm hover:underline">Remove Unit</button>
+                                        <button type="button" onClick={() => setUnits(units.filter((_, i) => i !== uIdx))} className="text-[10px] font-sans font-bold uppercase tracking-widest text-red-700/70 hover:text-red-700 pb-1 border-b border-transparent hover:border-red-700 transition-colors">Withdraw Chapter</button>
                                     )}
                                 </div>
 
-                                <div className="grid md:grid-cols-2 gap-4">
-                                    <InputField label="Unit Title" value={unit.title} onChange={(e: any) => handleUnitChange(uIdx, 'title', e.target.value)} placeholder="e.g. Important Theoretical Distributions" />
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    <InputField label="Chapter Title" value={unit.title} onChange={(e: any) => handleUnitChange(uIdx, 'title', e.target.value)} placeholder="e.g. Fundamental Theorems" />
                                     <div className="flex items-center gap-4 mt-8">
-                                        <label className="flex items-center gap-2 text-sm text-slate-300">
-                                            <input type="checkbox" checked={unit.skip_safe} onChange={(e) => handleUnitChange(uIdx, 'skip_safe', e.target.checked)} className="rounded border-slate-600 bg-surface text-primary focus:ring-primary/50" />
-                                            Is it safe to skip this unit?
+                                        <label className="flex items-center gap-3 text-sm font-serif text-slate-700 border p-3 border-academic-gold/30 bg-white rounded cursor-pointer w-full hover:bg-academic-parchment/50 transition-colors">
+                                            <input type="checkbox" checked={unit.skip_safe} onChange={(e) => handleUnitChange(uIdx, 'skip_safe', e.target.checked)} className="rounded border-academic-gold/50 bg-white text-academic-green focus:ring-academic-green/30 w-4 h-4" />
+                                            <span>Omissible without peril?</span>
                                         </label>
                                     </div>
-                                    <SelectField label="Unit Difficulty" value={unit.unit_difficulty} onChange={(e: any) => handleUnitChange(uIdx, 'unit_difficulty', e.target.value)} options={['easy', 'moderate', 'hard']} />
-                                    <SelectField label="Scoring Value" value={unit.scoring_value} onChange={(e: any) => handleUnitChange(uIdx, 'scoring_value', e.target.value)} options={['low', 'medium', 'high']} />
+                                    <SelectField label="Chapter Difficulty" value={unit.unit_difficulty} onChange={(e: any) => handleUnitChange(uIdx, 'unit_difficulty', e.target.value)} options={['easy', 'moderate', 'hard']} />
+                                    <SelectField label="Reward Value" value={unit.scoring_value} onChange={(e: any) => handleUnitChange(uIdx, 'scoring_value', e.target.value)} options={['low', 'medium', 'high']} />
                                 </div>
 
-                                <div className="space-y-3 pt-4 border-t border-border">
-                                    <label className="block text-sm font-medium text-slate-300">Important Topics (Markdown Supported)</label>
+                                <div className="space-y-4 pt-4 mt-2">
+                                    <label className="block font-sans uppercase text-[10px] tracking-widest font-bold text-slate-500 mb-2">Key Postulates & Topics</label>
                                     {unit.topics.map((topic, tIdx) => (
-                                        <div key={tIdx} className="flex gap-2">
+                                        <div key={tIdx} className="flex gap-3">
                                             <input
                                                 type="text"
                                                 value={topic}
                                                 onChange={(e) => handleTopicChange(uIdx, tIdx, e.target.value)}
-                                                className="w-full bg-surface-hover/50 border border-border rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm"
-                                                placeholder={`e.g. **Topic Name** - Description of what to study.`}
+                                                className="w-full bg-white border-b-2 border-academic-gold/30 px-4 py-2 text-academic-green focus:outline-none focus:border-academic-green transition-colors font-serif placeholder-slate-400"
+                                                placeholder={`e.g. **Theorem 1** - Essential deduction.`}
                                             />
                                             {unit.topics.length > 1 && (
-                                                <button type="button" onClick={() => removeTopic(uIdx, tIdx)} className="px-3 text-slate-400 hover:text-red-400 transition-colors">✕</button>
+                                                <button type="button" onClick={() => removeTopic(uIdx, tIdx)} className="px-2 pb-1 text-[10px] font-sans font-bold uppercase tracking-widest text-red-700/50 hover:text-red-700 hover:border-b hover:border-red-700 transition-all">✕</button>
                                             )}
                                         </div>
                                     ))}
-                                    <button type="button" onClick={() => addTopic(uIdx)} className="text-sm text-primary hover:text-primary-hover font-medium mt-2">+ Add another topic</button>
+                                    <button type="button" onClick={() => addTopic(uIdx)} className="text-[10px] uppercase font-bold tracking-widest text-academic-gold hover:text-academic-green transition-colors font-sans mt-2">+ Append Topic</button>
                                 </div>
                             </div>
                         ))}
 
-                        <button type="button" onClick={addUnit} className="w-full py-4 border-2 border-dashed border-border rounded-xl text-slate-400 hover:text-white hover:border-slate-500 transition-colors font-medium">
-                            + Add Unit {units.length + 1}
+                        <button type="button" onClick={addUnit} className="w-full py-5 border-2 border-dashed border-academic-gold/50 bg-academic-parchment/10 rounded-lg text-academic-gold hover:text-academic-green hover:border-academic-green hover:bg-academic-parchment/30 transition-all font-sans font-bold uppercase tracking-widest text-[10px]">
+                            + Inscribe Next Chapter (Unit {units.length + 1})
                         </button>
                     </div>
                 )}
 
                 {step === 5 && (
-                    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4">
-                        <h2 className="text-2xl font-bold text-white border-b border-border pb-3">5. Exam Strategies & Resources</h2>
+                    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4">
+                        <h2 className="text-2xl font-bold font-serif italic text-academic-gold border-b-2 border-academic-green/20 pb-2 mb-6">Article V: Examination Strategy & Supplements</h2>
                         <TextAreaField
-                            label="Midsem Strategy"
+                            label="Mid-Evaluation Discourse (Midsem Strat)"
                             value={strategies.midsem_strategy}
                             onChange={(e: any) => setStrategies({ ...strategies, midsem_strategy: e.target.value })}
-                            placeholder="List important topics for mid-terms..."
-                            helpText="Markdown supported"
+                            placeholder="Detail the tactical approach for mid-term assessments..."
                         />
                         <TextAreaField
-                            label="Endsem Strategy"
+                            label="Final Evaluation Discourse (Endsem Strat)"
                             value={strategies.endsem_strategy}
                             onChange={(e: any) => setStrategies({ ...strategies, endsem_strategy: e.target.value })}
-                            placeholder="List important topics for end-terms..."
-                            helpText="Markdown supported"
+                            placeholder="Detail the complete tactical synthesis for final assessments..."
                         />
 
-                        <div className="pt-6 border-t border-border mt-6">
-                            <h3 className="text-xl font-bold text-white mb-4">Previous Year Questions (PYQs)</h3>
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <InputField required={false} label="Midsem PYQ Image URL" value={midsemPyqUrl} onChange={(e: any) => setMidsemPyqUrl(e.target.value)} placeholder="https://example.com/midsem.jpg" />
-                                <InputField required={false} label="Endsem PYQ Image URL" value={endsemPyqUrl} onChange={(e: any) => setEndsemPyqUrl(e.target.value)} placeholder="https://example.com/endsem.jpg" />
+                        <div className="pt-8 mb-4">
+                            <h3 className="text-xl font-bold font-serif italic text-academic-green border-b border-academic-gold/20 pb-2 mb-4">Archived Question Manuscripts</h3>
+                            <div className="grid md:grid-cols-2 gap-6 bg-academic-parchment/20 p-6 border border-academic-gold/30 rounded-lg vintage-border shadow-sm">
+                                <InputField required={false} label="Midterm Manuscript Image URL" value={midsemPyqUrl} onChange={(e: any) => setMidsemPyqUrl(e.target.value)} placeholder="https://example.com/midsem.jpg" />
+                                <InputField required={false} label="Finals Manuscript Image URL" value={endsemPyqUrl} onChange={(e: any) => setEndsemPyqUrl(e.target.value)} placeholder="https://example.com/endsem.jpg" />
                             </div>
                         </div>
 
-                        <div className="pt-6 border-t border-border mt-6">
-                            <h3 className="text-xl font-bold text-white mb-4">Study Materials & Notes</h3>
+                        <div className="pt-4">
+                            <h3 className="text-xl font-bold font-serif italic text-academic-green border-b border-academic-gold/20 pb-2 mb-4">Supplementary Literature</h3>
                             <div className="space-y-4">
                                 {materials.map((mat, idx) => (
-                                    <div key={idx} className="flex flex-col md:flex-row gap-4 items-end bg-surface p-4 rounded-xl border border-border">
-                                        <div className="flex-1 w-full"><InputField required={false} label="Title" value={mat.title} onChange={(e: any) => handleMaterialChange(idx, 'title', e.target.value)} placeholder="e.g. Unit 3 Handwritten Notes" /></div>
-                                        <div className="flex-1 w-full"><InputField required={false} label="URL Link" value={mat.url} onChange={(e: any) => handleMaterialChange(idx, 'url', e.target.value)} placeholder="https://drive.google.com/..." /></div>
-                                        <div className="w-full md:w-40"><SelectField label="Type" value={mat.type} onChange={(e: any) => handleMaterialChange(idx, 'type', e.target.value)} options={['document', 'video', 'link']} /></div>
+                                    <div key={idx} className="flex flex-col md:flex-row gap-4 items-end bg-academic-parchment/20 border border-academic-gold/30 p-4 rounded-lg vintage-border shadow-sm">
+                                        <div className="flex-1 w-full"><InputField required={false} label="Title of Work" value={mat.title} onChange={(e: any) => handleMaterialChange(idx, 'title', e.target.value)} placeholder="e.g. Chapter 3 Faculty Notes" /></div>
+                                        <div className="flex-1 w-full"><InputField required={false} label="Locator Link" value={mat.url} onChange={(e: any) => handleMaterialChange(idx, 'url', e.target.value)} placeholder="https://drive.google.com/..." /></div>
+                                        <div className="w-full md:w-32"><SelectField label="Format" value={mat.type} onChange={(e: any) => handleMaterialChange(idx, 'type', e.target.value)} options={['document', 'video', 'link']} /></div>
                                         {materials.length > 1 && (
-                                            <button type="button" onClick={() => removeMaterial(idx)} className="pb-3 px-2 text-slate-400 hover:text-red-400 transition-colors">✕</button>
+                                            <button type="button" onClick={() => removeMaterial(idx)} className="pb-4 px-2 text-[10px] font-sans font-bold uppercase tracking-widest text-red-700/50 hover:text-red-700 transition-all">✕</button>
                                         )}
                                     </div>
                                 ))}
-                                <button type="button" onClick={addMaterial} className="text-sm text-primary hover:text-primary-hover font-medium">+ Add Material</button>
+                                <button type="button" onClick={addMaterial} className="text-[10px] uppercase font-bold tracking-widest text-academic-gold hover:text-academic-green transition-colors font-sans mt-2 inline-block">+ Append Source</button>
                             </div>
                         </div>
                     </div>
                 )}
 
                 {/* Navigation Buttons */}
-                <div className="flex justify-between pt-6 border-t border-border">
+                <div className="flex justify-between pt-8 mt-10 border-t border-academic-gold/30 items-center">
                     <button
                         type="button"
                         onClick={() => setStep(step - 1)}
                         disabled={step === 1 || isSubmitting}
-                        className={`px-6 py-2.5 rounded-lg font-medium transition-colors ${step === 1 ? 'opacity-0 pointer-events-none' : 'bg-surface-hover text-white hover:bg-surface-hover/80'}`}
+                        className={`font-sans font-bold uppercase text-xs tracking-widest text-slate-500 hover:text-academic-green transition-colors ${step === 1 ? 'opacity-0 pointer-events-none' : ''}`}
                     >
-                        Back
+                        ← Previous Article
                     </button>
 
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="btn-primary px-8 py-2.5 flex items-center gap-2 font-medium"
+                        className="border-2 border-academic-green bg-academic-green text-academic-parchment hover:bg-transparent hover:text-academic-green px-8 py-3 font-bold uppercase tracking-widest text-xs transition-all rounded shadow-sm flex items-center gap-2"
                     >
                         {isSubmitting ? (
-                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                            <>
+                                <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
+                                Transcribing...
+                            </>
                         ) : step < 5 ? (
-                            "Next Step →"
+                            "Next Article →"
                         ) : (
-                            "Submit Subject"
+                            "Seal & Submit"
                         )}
                     </button>
                 </div>
