@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import { DEPARTMENTS } from "@/lib/constants";
 
 interface Course {
     course_id: string;
@@ -33,7 +34,8 @@ export default function SubjectGrid({ subjects, search }: { subjects: Subject[],
     const [sortBy, setSortBy] = useState("semester-asc");
     const [filterDept, setFilterDept] = useState("All");
 
-    const departments = ["All", ...Array.from(new Set(subjects.map(s => s.course.department)))];
+    const predefinedDepts = DEPARTMENTS.map(d => d.shortName);
+    const departments = ["All", ...Array.from(new Set([...predefinedDepts, ...subjects.map(s => s.course.department)]))];
 
     const processedSubjects = useMemo(() => {
         let result = [...subjects];

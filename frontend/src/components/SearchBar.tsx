@@ -1,21 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Search } from "lucide-react";
 
 export default function SearchBar() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const [query, setQuery] = useState(searchParams.get("search") || "");
+    const initialQuery = searchParams.get("search") || "";
+    const [query, setQuery] = useState(initialQuery);
+    const isMounted = useRef(false);
+
+    useEffect(() => {
+        if (!isMounted.current) {
+            isMounted.current = true;
+            return;
+        }
+
+        const timer = setTimeout(() => {
+            if (query.trim()) {
+                router.push(`/?search=${encodeURIComponent(query.trim())}`);
+            } else {
+                router.push(`/`);
+            }
+        }, 300);
+
+        return () => clearTimeout(timer);
+    }, [query, router]);
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
-        if (query.trim()) {
-            router.push(`/?search=${encodeURIComponent(query.trim())}`);
-        } else {
-            router.push(`/`);
-        }
     };
 
     return (
@@ -30,7 +44,6 @@ export default function SearchBar() {
                 className="w-full bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 border-academic-green/30 py-4 pl-12 pr-4 focus:ring-0 focus:border-academic-green placeholder:italic placeholder:text-academic-green/40 text-lg transition-all text-academic-green outline-none"
                 placeholder="Search for subjects, course codes, or notes..."
             />
-            {/* The enter key automatically submits the form, no button needed for this wide vintage style */}
         </form>
     );
 }

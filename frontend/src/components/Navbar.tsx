@@ -33,6 +33,7 @@ export default function Navbar() {
                 {/* Desktop Navigation */}
                 <div className="hidden md:flex items-center space-x-8 font-bold uppercase text-xs tracking-widest">
                     <Link href="/" className="hover:text-academic-gold transition-colors">Subjects</Link>
+                    <Link href="/team" className="hover:text-academic-gold transition-colors">Team</Link>
 
                     {!loading && (
                         <>
@@ -60,6 +61,7 @@ export default function Navbar() {
             {isMobileMenuOpen && (
                 <div className="md:hidden absolute top-20 left-0 w-full bg-academic-cream border-b border-academic-green/20 shadow-lg flex flex-col items-center py-6 space-y-6 font-bold uppercase text-sm tracking-widest">
                     <Link href="/" onClick={closeMenu} className="hover:text-academic-gold transition-colors">Subjects</Link>
+                    <Link href="/team" onClick={closeMenu} className="hover:text-academic-gold transition-colors">Team</Link>
 
                     {!loading && (
                         <>

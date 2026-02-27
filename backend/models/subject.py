@@ -43,7 +43,6 @@ class Unit(BaseModel):
     title: str = ""
     unit_difficulty: Literal["easy", "moderate", "hard"] = "moderate"
     scoring_value: Literal["low", "medium", "high"] = "medium"
-    skip_safe: bool = False
     topics: List[str] = []
 
 

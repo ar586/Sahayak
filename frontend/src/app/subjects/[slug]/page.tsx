@@ -2,13 +2,13 @@ import { BookOpen, AlertTriangle, ShieldCheck, Target, TrendingUp, Clock, FileTe
 import ReactMarkdown from "react-markdown";
 import ImageModal from "@/components/ImageModal";
 import SyllabusButton from "@/components/SyllabusButton";
+import ExportPdfButton from "@/components/ExportPdfButton";
 
 interface Unit {
     unit_number: number;
     title: string;
     unit_difficulty: string;
     scoring_value: string;
-    skip_safe: boolean;
     topics: string[];
 }
 
@@ -82,9 +82,12 @@ export default async function SubjectPage({ params }: { params: Promise<{ slug: 
                     <span className="w-1.5 h-1.5 bg-academic-green rounded-full hidden sm:block"></span>
                     <span>Course Code: {subject.course.course_id}</span>
                 </div>
-                {subject.syllabus_image_url && (
-                    <SyllabusButton url={subject.syllabus_image_url} />
-                )}
+                <div className="flex flex-wrap justify-center items-center gap-4 mt-8">
+                    {subject.syllabus_image_url && (
+                        <SyllabusButton url={subject.syllabus_image_url} />
+                    )}
+                    <ExportPdfButton />
+                </div>
             </header>
 
             {/* ScholarlyMetrics */}
@@ -112,13 +115,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ slug: 
                 <div className="lg:col-span-2">
                     <h2 className="text-3xl font-bold mb-8 border-b-2 border-academic-green w-max pr-12 pb-2 font-serif">General Overview</h2>
                     <div className="justified-text text-lg leading-relaxed text-slate-800 font-serif whitespace-pre-line">
-                        {/* Try to extract the first letter of about_subject for the drop-cap */}
-                        {subject.intro.about_subject && (
-                            <>
-                                <span className="drop-cap">{subject.intro.about_subject.charAt(0)}</span>
-                                {subject.intro.about_subject.slice(1)}
-                            </>
-                        )}
+                        {subject.intro.about_subject}
                     </div>
                 </div>
                 <aside className="lg:col-span-1">

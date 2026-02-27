@@ -9,7 +9,7 @@ export default function SyllabusButton({ url, label = "View Syllabus" }: { url: 
     if (!url) return null;
 
     return (
-        <div className="mt-8 flex justify-start">
+        <div className="inline-block">
             <button
                 onClick={() => setIsOpen(true)}
                 className="inline-flex items-center gap-2 px-6 py-2.5 bg-academic-parchment hover:bg-academic-gold/20 text-academic-green border border-academic-gold/50 rounded shadow-sm font-bold uppercase tracking-widest text-xs font-sans transition-all"

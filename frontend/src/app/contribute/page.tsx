@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import { DEPARTMENTS } from "@/lib/constants";
 
 const InputField = ({ label, value, onChange, placeholder, type = "text", required = true }: any) => (
     <div>
@@ -72,7 +73,7 @@ export default function ContributeSubjectPage() {
         course_id: "",
         course_name: "",
         semester: 1,
-        department: ""
+        department: DEPARTMENTS[0].shortName
     });
 
     const [overview, setOverview] = useState({
@@ -90,7 +91,7 @@ export default function ContributeSubjectPage() {
     });
 
     const [units, setUnits] = useState([
-        { unit_number: 1, title: "", unit_difficulty: "moderate", scoring_value: "medium", skip_safe: false, topics: [""] }
+        { unit_number: 1, title: "", unit_difficulty: "moderate", scoring_value: "medium", topics: [""] }
     ]);
 
     const [strategies, setStrategies] = useState({
@@ -136,7 +137,6 @@ export default function ContributeSubjectPage() {
             title: "",
             unit_difficulty: "moderate",
             scoring_value: "medium",
-            skip_safe: false,
             topics: [""]
         }]);
     };
@@ -265,7 +265,7 @@ export default function ContributeSubjectPage() {
                             <InputField label="URL Slug" value={slug} onChange={(e: any) => setSlug(e.target.value.toLowerCase().replace(/\s+/g, '-'))} placeholder="probability-and-statistics" />
                             <InputField label="Course Identifier" value={course.course_id} onChange={(e: any) => setCourse({ ...course, course_id: e.target.value })} placeholder="e.g. MA301" />
                             <InputField label="Program Name" value={course.course_name} onChange={(e: any) => setCourse({ ...course, course_name: e.target.value })} placeholder="e.g. B.Tech" />
-                            <InputField label="Department" value={course.department} onChange={(e: any) => setCourse({ ...course, department: e.target.value })} placeholder="e.g. Computer Science" />
+                            <SelectField label="Department" value={course.department} onChange={(e: any) => setCourse({ ...course, department: e.target.value })} options={DEPARTMENTS.map(d => d.shortName)} />
                             <InputField label="Semester" type="number" value={course.semester.toString()} onChange={(e: any) => setCourse({ ...course, semester: parseInt(e.target.value) || 1 })} placeholder="3" />
                         </div>
                         <InputField label="Illuminating Engraving (Banner URL)" required={false} value={syllabusImageUrl} onChange={(e: any) => setSyllabusImageUrl(e.target.value)} placeholder="https://example.com/illustration.jpg" />
@@ -308,12 +308,8 @@ export default function ContributeSubjectPage() {
                                 </div>
 
                                 <div className="grid md:grid-cols-2 gap-6">
-                                    <InputField label="Chapter Title" value={unit.title} onChange={(e: any) => handleUnitChange(uIdx, 'title', e.target.value)} placeholder="e.g. Fundamental Theorems" />
-                                    <div className="flex items-center gap-4 mt-8">
-                                        <label className="flex items-center gap-3 text-sm font-serif text-slate-700 border p-3 border-academic-gold/30 bg-white rounded cursor-pointer w-full hover:bg-academic-parchment/50 transition-colors">
-                                            <input type="checkbox" checked={unit.skip_safe} onChange={(e) => handleUnitChange(uIdx, 'skip_safe', e.target.checked)} className="rounded border-academic-gold/50 bg-white text-academic-green focus:ring-academic-green/30 w-4 h-4" />
-                                            <span>Omissible without peril?</span>
-                                        </label>
+                                    <div className="md:col-span-2">
+                                        <InputField label="Chapter Title" value={unit.title} onChange={(e: any) => handleUnitChange(uIdx, 'title', e.target.value)} placeholder="e.g. Fundamental Theorems" />
                                     </div>
                                     <SelectField label="Chapter Difficulty" value={unit.unit_difficulty} onChange={(e: any) => handleUnitChange(uIdx, 'unit_difficulty', e.target.value)} options={['easy', 'moderate', 'hard']} />
                                     <SelectField label="Reward Value" value={unit.scoring_value} onChange={(e: any) => handleUnitChange(uIdx, 'scoring_value', e.target.value)} options={['low', 'medium', 'high']} />
