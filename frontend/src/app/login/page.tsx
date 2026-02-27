@@ -45,38 +45,39 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="max-w-md mx-auto mt-20 p-8 glass-panel rounded-2xl">
+        <div className="max-w-md mx-auto mt-20 p-8 vintage-border bg-academic-parchment library-card-shadow relative">
+            <div className="absolute top-0 left-0 w-full h-1 bg-academic-gold/20"></div>
             <div className="text-center mb-8">
-                <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
-                <p className="text-slate-400">Log in to Sahayak to contribute.</p>
+                <h1 className="text-4xl font-light text-academic-green mb-2 font-serif italic">Welcome Back</h1>
+                <p className="text-academic-green/70 font-serif">Log in to Sahayak to contribute.</p>
             </div>
 
             {error && (
-                <div className="bg-red-500/10 border border-red-500/20 text-red-500 p-3 rounded-lg mb-6 text-sm text-center">
+                <div className="bg-red-500/10 border-l-4 border-red-500 text-red-700 p-3 mb-6 text-sm text-center font-sans tracking-wide">
                     {error}
                 </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-1">Email Address</label>
+                    <label className="block text-xs font-bold font-sans tracking-widest uppercase text-academic-green mb-2">Email Address</label>
                     <input
                         type="email"
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full bg-surface-hover/50 border border-border rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                        className="w-full bg-white/50 border-b-2 border-academic-gold/30 px-4 py-2.5 text-academic-green placeholder-academic-green/40 focus:outline-none focus:border-academic-green focus:bg-white transition-all font-serif italic"
                         placeholder="you@university.edu"
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-1">Password</label>
+                    <label className="block text-xs font-bold font-sans tracking-widest uppercase text-academic-green mb-2">Password</label>
                     <input
                         type="password"
                         required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full bg-surface-hover/50 border border-border rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                        className="w-full bg-white/50 border-b-2 border-academic-gold/30 px-4 py-2.5 text-academic-green placeholder-academic-green/40 focus:outline-none focus:border-academic-green focus:bg-white transition-all font-serif italic"
                         placeholder="••••••••"
                     />
                 </div>
@@ -84,19 +85,19 @@ export default function LoginPage() {
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full btn-primary py-2.5 flex justify-center mt-6"
+                    className="w-full bg-academic-green text-academic-cream py-3.5 flex justify-center mt-8 uppercase tracking-widest font-bold text-xs rounded hover:bg-academic-green/90 transition-all font-sans"
                 >
                     {isLoading ? (
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                        <div className="w-4 h-4 border-2 border-academic-cream/30 border-t-academic-cream rounded-full animate-spin"></div>
                     ) : (
                         "Log In"
                     )}
                 </button>
             </form>
 
-            <div className="mt-6 text-center text-sm text-slate-400">
+            <div className="mt-8 text-center text-sm font-serif italic text-academic-green/70">
                 Don&apos;t have an account?{" "}
-                <Link href="/signup" className="text-primary hover:underline">
+                <Link href="/signup" className="text-academic-green font-bold not-italic font-sans text-xs tracking-widest uppercase hover:text-academic-gold transition-colors ml-2">
                     Sign up
                 </Link>
             </div>

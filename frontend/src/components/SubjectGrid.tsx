@@ -12,7 +12,9 @@ interface Course {
 
 interface Overview {
     overall_difficulty: string;
+    nature_type: string;
     time_required: string;
+    scoring_potential: string;
     risk_level: string;
 }
 
@@ -96,8 +98,8 @@ export default function SubjectGrid({ subjects, search }: { subjects: Subject[],
                         <div className="vintage-border p-8 bg-academic-parchment library-card-shadow group cursor-pointer hover:-translate-y-1 transition-transform h-full flex flex-col">
                             <div className="flex justify-between items-start mb-6">
                                 <span className="text-xs font-bold tracking-widest uppercase text-academic-gold font-sans">{subject.course.course_id}</span>
-                                <div className="w-12 h-12 border-2 border-dotted border-academic-gold rounded-full flex items-center justify-center shrink-0">
-                                    <div className="text-[10px] font-bold text-center leading-tight uppercase font-sans">Sem<br />{subject.course.semester}</div>
+                                <div className="px-3 py-1.5 border border-academic-gold/50 bg-academic-gold/10 rounded flex items-center justify-center shrink-0">
+                                    <div className="text-[10px] font-bold text-center leading-tight uppercase font-sans text-academic-gold">Sem {subject.course.semester}</div>
                                 </div>
                             </div>
 
@@ -107,9 +109,11 @@ export default function SubjectGrid({ subjects, search }: { subjects: Subject[],
                                 {subject.intro?.about_subject}
                             </p>
 
-                            <div className="border-t border-academic-green/10 pt-4 flex justify-between items-center italic text-sm opacity-70 font-serif mt-auto">
-                                <span>{subject.course.department}</span>
-                                <span className="capitalize">{subject.overview.overall_difficulty}</span>
+                            <div className="border-t border-academic-green/10 pt-4 flex flex-wrap gap-x-2 gap-y-1 justify-between items-center italic text-xs lg:text-sm opacity-70 font-serif mt-auto">
+                                <span title="Department" className="truncate">{subject.course.department}</span>
+                                <span title="Nature of Course" className="capitalize">{subject.overview.nature_type}</span>
+                                <span title="Overall Difficulty" className="capitalize">{subject.overview.overall_difficulty}</span>
+                                <span title="Scoring Potential" className="capitalize">{subject.overview.scoring_potential}</span>
                             </div>
                         </div>
                     </Link>

@@ -11,7 +11,9 @@ interface Course {
 
 interface Overview {
   overall_difficulty: string;
+  nature_type: string;
   time_required: string;
+  scoring_potential: string;
   risk_level: string;
 }
 
