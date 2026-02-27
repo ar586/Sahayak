@@ -2,7 +2,6 @@
 
 Sahayak ("Helper/Assistant" in Sanskrit) is an open-source, community-driven platform designed to demystify college semantics. It acts as an academic encyclopedia, providing students with structured breakdowns of their courses, critical study strategies, and curated study materials, turning overwhelming syllabi into actionable roadmaps.
 
-![Sahayak Academic Theme Concept](https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1200&auto=format&fit=crop)
 
 ## Features 🚀
 
