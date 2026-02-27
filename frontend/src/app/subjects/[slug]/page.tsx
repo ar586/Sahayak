@@ -39,7 +39,8 @@ interface Subject {
 async function getSubject(slug: string): Promise<Subject | null> {
     console.log("Fetching subject:", slug);
     try {
-        const res = await fetch(`http://127.0.0.1:8000/subjects/${slug}`, { cache: "no-store" });
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+        const res = await fetch(`${API_URL}/subjects/${slug}`, { cache: "no-store" });
         console.log("Fetch status:", res.status);
         if (!res.ok) {
             console.error("Failed to fetch:", res.status, res.statusText);

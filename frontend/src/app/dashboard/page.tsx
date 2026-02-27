@@ -16,7 +16,8 @@ export default function UserDashboardPage() {
     const fetchMySubjects = useCallback(async () => {
         if (!token) return;
         try {
-            const res = await fetch("http://127.0.0.1:8000/users/me/subjects", {
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+            const res = await fetch(`${API_URL}/users/me/subjects`, {
                 headers: { "Authorization": `Bearer ${token}` }
             });
             if (!res.ok) throw new Error("Failed to fetch subjects");
@@ -33,7 +34,8 @@ export default function UserDashboardPage() {
         if (!window.confirm("Are you sure you want to completely delete this subject? This cannot be undone.")) return;
 
         try {
-            const res = await fetch(`http://127.0.0.1:8000/subjects/${id}`, {
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+            const res = await fetch(`${API_URL}/subjects/${id}`, {
                 method: "DELETE",
                 headers: { "Authorization": `Bearer ${token}` }
             });

@@ -27,9 +27,10 @@ interface Subject {
 }
 
 async function getSubjects(search?: string): Promise<Subject[]> {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
   const url = search
-    ? `http://127.0.0.1:8000/subjects?search=${encodeURIComponent(search)}`
-    : "http://127.0.0.1:8000/subjects";
+    ? `${API_URL}/subjects?search=${encodeURIComponent(search)}`
+    : `${API_URL}/subjects`;
 
   const res = await fetch(url, { cache: "no-store" });
   if (!res.ok) return [];

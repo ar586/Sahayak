@@ -16,11 +16,12 @@ export default function AdminQueuePage() {
     const fetchQueue = useCallback(async () => {
         if (!token) return;
         try {
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
             const [pendingRes, publishedRes] = await Promise.all([
-                fetch("http://127.0.0.1:8000/admin/queue", {
+                fetch(`${API_URL}/admin/queue`, {
                     headers: { "Authorization": `Bearer ${token}` }
                 }),
-                fetch("http://127.0.0.1:8000/subjects")
+                fetch(`${API_URL}/subjects`)
             ]);
 
             if (!pendingRes.ok || !publishedRes.ok) throw new Error("Failed to fetch subjects");
@@ -48,9 +49,10 @@ export default function AdminQueuePage() {
         setActionLoading(true);
         try {
             const method = action === "delete" ? "DELETE" : "PUT";
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
             const url = action === "delete"
-                ? `http://127.0.0.1:8000/subjects/${id}`
-                : `http://127.0.0.1:8000/admin/${action}/${id}`;
+                ? `${API_URL}/subjects/${id}`
+                : `${API_URL}/admin/${action}/${id}`;
 
             const res = await fetch(url, {
                 method,
