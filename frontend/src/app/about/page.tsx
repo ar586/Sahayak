@@ -1,4 +1,4 @@
-import { BookOpen, Users, Code, Mail } from "lucide-react";
+import { BookOpen, Users, Code, Mail, Linkedin } from "lucide-react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -45,7 +45,12 @@ export default function AboutPage() {
                         <div className="w-24 h-24 bg-academic-parchment rounded-full border-2 border-academic-gold/30 flex items-center justify-center mb-6 text-academic-gold transition-colors overflow-hidden">
                             <img src="/aryan.jpeg" alt="Aryan Anand" className="w-full h-full object-cover shadow-inner" />
                         </div>
-                        <h3 className="text-2xl font-bold font-serif mb-1">Aryan Anand</h3>
+                        <div className="flex items-center gap-3 mb-1">
+                            <h3 className="text-2xl font-bold font-serif">Aryan Anand</h3>
+                            <a href="https://www.linkedin.com/in/aryan-anand-4aba06309/" target="_blank" rel="noopener noreferrer" className="text-academic-gold hover:text-academic-green transition-colors">
+                                <Linkedin size={20} />
+                            </a>
+                        </div>
                         <p className="text-xs uppercase tracking-widest font-bold text-slate-500 mb-6 font-sans">Creator & Lead Architect</p>
                         <p className="font-serif text-slate-700 leading-relaxed max-w-sm">
                             The driving force behind Sahayak, engineering the core infrastructure and designing its signature academic aesthetic to empower the next generation of scholars.
@@ -57,7 +62,12 @@ export default function AboutPage() {
                         <div className="w-24 h-24 bg-academic-parchment rounded-full border-2 border-academic-green/30 flex items-center justify-center mb-6 text-academic-green transition-colors overflow-hidden">
                             <img src="/manish.jpeg" alt="Manish Mittal" className="w-full h-full object-cover shadow-inner" />
                         </div>
-                        <h3 className="text-2xl font-bold font-serif mb-1">Manish Mittal</h3>
+                        <div className="flex items-center gap-3 mb-1">
+                            <h3 className="text-2xl font-bold font-serif">Manish Mittal</h3>
+                            <a href="https://www.linkedin.com/in/manish-a477b4317" target="_blank" rel="noopener noreferrer" className="text-academic-green hover:text- академик-gold transition-colors opacity-80 hover:opacity-100">
+                                <Linkedin size={20} />
+                            </a>
+                        </div>
                         <p className="text-xs uppercase tracking-widest font-bold text-slate-500 mb-6 font-sans">Content Manager</p>
                         <p className="font-serif text-slate-700 leading-relaxed max-w-sm">
                             With his immense academic knowledge and experience, he has been instrumental in shaping the platform's vision, structuring the educational taxonomy, and curating the foundational library of subjects.He is currently ranked 11th in department with a massive 8.8 cgpa.
@@ -79,7 +89,12 @@ export default function AboutPage() {
                         </p>
 
                         <div className="inline-block bg-academic-cream/10 px-8 py-4 rounded-custom border border-academic-gold/30">
-                            <h3 className="text-2xl font-bold font-serif text-white">Sujal Chaudhary</h3>
+                            <div className="flex items-center gap-3">
+                                <h3 className="text-2xl font-bold font-serif text-white">Sujal Chaudhary</h3>
+                                <a href="sujal.info/linkedin" target="_blank" rel="noopener noreferrer" className="text-academic-gold hover:text-white transition-colors">
+                                    <Linkedin size={20} />
+                                </a>
+                            </div>
                             <p className="text-[10px] uppercase font-bold tracking-widest text-academic-gold font-sans mt-1">Technical Advisor</p>
                         </div>
                     </div>
