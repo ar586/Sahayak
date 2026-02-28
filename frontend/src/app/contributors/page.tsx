@@ -56,7 +56,9 @@ async function getTeamData(): Promise<Contributor[]> {
     }
 }
 
-export default async function TeamPage() {
+export const metadata = { title: "Contributors - Sahayak" };
+
+export default async function ContributorsPage() {
     const contributors = await getTeamData();
 
     return (

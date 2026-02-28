@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { DEPARTMENTS } from "@/lib/constants";
@@ -98,6 +98,41 @@ export default function ContributeSubjectPage() {
         midsem_strategy: "",
         endsem_strategy: ""
     });
+
+    const STORAGE_KEY = "sahayak_contribute_form_v2";
+
+    // Hydrate form from local storage
+    useEffect(() => {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                if (parsed.step) setStep(parsed.step);
+                if (parsed.name) setName(parsed.name);
+                if (parsed.slug) setSlug(parsed.slug);
+                if (parsed.syllabusImageUrl) setSyllabusImageUrl(parsed.syllabusImageUrl);
+                if (parsed.midsemPyqUrl) setMidsemPyqUrl(parsed.midsemPyqUrl);
+                if (parsed.endsemPyqUrl) setEndsemPyqUrl(parsed.endsemPyqUrl);
+                if (parsed.materials) setMaterials(parsed.materials);
+                if (parsed.course) setCourse(parsed.course);
+                if (parsed.overview) setOverview(parsed.overview);
+                if (parsed.intro) setIntro(parsed.intro);
+                if (parsed.units) setUnits(parsed.units);
+                if (parsed.strategies) setStrategies(parsed.strategies);
+            } catch (e) {
+                console.error("Failed to parse saved form data", e);
+            }
+        }
+    }, []);
+
+    // Sync form state to local storage
+    useEffect(() => {
+        const dataToSave = {
+            step, name, slug, syllabusImageUrl, midsemPyqUrl, endsemPyqUrl,
+            materials, course, overview, intro, units, strategies
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
+    }, [step, name, slug, syllabusImageUrl, midsemPyqUrl, endsemPyqUrl, materials, course, overview, intro, units, strategies]);
 
     // Redirect if not logged in
     if (!loading && !user) {
@@ -205,6 +240,7 @@ export default function ContributeSubjectPage() {
             const data = await res.json();
             if (!res.ok) throw new Error(data.detail || "Failed to submit subject");
 
+            localStorage.removeItem(STORAGE_KEY);
             setSuccess(true);
         } catch (err: any) {
             setError(err.message);
