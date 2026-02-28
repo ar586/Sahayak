@@ -12,10 +12,14 @@ export default function SyllabusButton({ url, label = "View Syllabus" }: { url: 
         <div className="inline-block">
             <button
                 onClick={() => setIsOpen(true)}
-                className="inline-flex items-center gap-2 px-6 py-2.5 bg-academic-parchment hover:bg-academic-gold/20 text-academic-green border border-academic-gold/50 rounded shadow-sm font-bold uppercase tracking-widest text-xs font-sans transition-all"
+                className="no-print inline-flex items-center gap-2 px-6 py-2.5 bg-academic-parchment hover:bg-academic-gold/20 text-academic-green border border-academic-gold/50 rounded shadow-sm font-bold uppercase tracking-widest text-xs font-sans transition-all"
             >
                 {label}
             </button>
+            <div className="hidden print:block text-xs font-mono mt-2 break-all text-left">
+                <span className="font-bold font-sans uppercase tracking-widest text-[10px] text-slate-500 block">{label}:</span>
+                <a href={url} className="text-academic-green underline">{url}</a>
+            </div>
 
             {isOpen && (
                 <div

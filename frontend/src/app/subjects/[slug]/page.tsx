@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { BookOpen, AlertTriangle, ShieldCheck, Target, TrendingUp, Clock, FileText } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import ImageModal from "@/components/ImageModal";
@@ -55,6 +56,13 @@ async function getSubject(slug: string): Promise<Subject | null> {
     }
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const resolvedParams = await params;
+    const subject = await getSubject(resolvedParams.slug);
+    if (!subject) return { title: "Subject Not Found - Sahayak" };
+    return { title: `${subject.name} - Sahayak` };
+}
+
 export default async function SubjectPage({ params }: { params: Promise<{ slug: string }> }) {
     const resolvedParams = await params;
     const slug = resolvedParams.slug;
@@ -91,7 +99,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ slug: 
             </header>
 
             {/* ScholarlyMetrics */}
-            <section className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+            <section className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 print-page-break">
                 <div className="encyclopedia-card p-6 text-center rounded-custom shadow-sm flex flex-col justify-center">
                     <h3 className="text-[10px] uppercase tracking-widest font-bold mb-2 opacity-60 font-sans">Difficulty</h3>
                     <p className="text-xl md:text-2xl font-semibold capitalize font-serif">{subject.overview.overall_difficulty}</p>
@@ -111,7 +119,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ slug: 
             </section>
 
             {/* OverviewSection */}
-            <section className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-20">
+            <section className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-20 print:block print-page-break-before print-page-break">
                 <div className="lg:col-span-2">
                     <h2 className="text-3xl font-bold mb-8 border-b-2 border-academic-green w-max pr-12 pb-2 font-serif">General Overview</h2>
                     <div className="justified-text text-lg leading-relaxed text-slate-800 font-serif whitespace-pre-line">
@@ -139,11 +147,11 @@ export default async function SubjectPage({ params }: { params: Promise<{ slug: 
             </section>
 
             {/* UnitBreakdown */}
-            <section className="mb-20">
+            <section className="mb-20 print-page-break">
                 <div className="ornament mb-16 text-2xl font-serif italic text-academic-gold">Course Curriculum</div>
                 <div className="space-y-16">
                     {subject.units.map((unit) => (
-                        <article key={unit.unit_number} className="flex flex-col md:flex-row gap-6 md:gap-10 items-start">
+                        <article key={unit.unit_number} className="flex flex-col md:flex-row gap-6 md:gap-10 items-start print-break-avoid">
                             <div className="text-6xl md:text-7xl font-extralight text-black/10 font-sans leading-none shrink-0 w-24">
                                 {String(unit.unit_number).padStart(2, '0')}
                             </div>
@@ -177,11 +185,11 @@ export default async function SubjectPage({ params }: { params: Promise<{ slug: 
 
             {/* Strategies Section */}
             {(subject.midsem_strategy || subject.endsem_strategy) && (
-                <section className="mb-20">
+                <section className="mb-20 print-page-break">
                     <div className="ornament mb-12 text-2xl font-serif italic text-academic-gold">Examination Discourse</div>
-                    <div className="grid md:grid-cols-2 gap-10">
+                    <div className="grid md:grid-cols-2 gap-10 print:flex print:flex-col print:gap-10">
                         {subject.midsem_strategy && (
-                            <div className="encyclopedia-card p-8 md:p-10 relative overflow-hidden">
+                            <div className="encyclopedia-card p-8 md:p-10 relative overflow-hidden print-break-avoid">
                                 <div className="absolute top-0 left-0 w-1.5 h-full bg-academic-gold/50"></div>
                                 <h3 className="text-xl font-bold mb-6 font-serif flex items-center gap-2">
                                     <span className="text-academic-gold italic">§</span> Mid-Semester Thesis
@@ -192,7 +200,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ slug: 
                             </div>
                         )}
                         {subject.endsem_strategy && (
-                            <div className="encyclopedia-card p-8 md:p-10 relative overflow-hidden">
+                            <div className="encyclopedia-card p-8 md:p-10 relative overflow-hidden print-break-avoid">
                                 <div className="absolute top-0 left-0 w-1.5 h-full bg-academic-green/50"></div>
                                 <h3 className="text-xl font-bold mb-6 font-serif flex items-center gap-2">
                                     <span className="text-academic-green italic">§</span> End-Semester Thesis
@@ -217,7 +225,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ slug: 
                                 href={mat.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group flex items-start gap-4 p-4 hover:bg-white/50 rounded transition-colors border-b border-border/50 hover:border-academic-green"
+                                className="group flex items-start gap-4 p-4 hover:bg-white/50 rounded transition-colors border-b border-border/50 hover:border-academic-green print-break-avoid"
                             >
                                 <div className="mt-1 opacity-50 text-academic-gold group-hover:opacity-100 transition-opacity">
                                     <BookOpen size={20} />
@@ -234,7 +242,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ slug: 
 
             {/* PreviousYearQuestions */}
             {(subject.midsem_pyq_url || subject.endsem_pyq_url) && (
-                <section className="mb-20 pt-10 border-t border-border border-dashed">
+                <section className="mb-20 pt-10 border-t border-border border-dashed print-page-break-before">
                     <h2 className="text-3xl font-bold mb-10 text-center italic font-serif">Previous Year Questions</h2>
                     <div className="flex flex-col md:flex-row gap-8 justify-center items-center max-w-4xl mx-auto">
                         {subject.midsem_pyq_url && (

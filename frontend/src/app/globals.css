@@ -179,6 +179,21 @@
     display: none !important;
   }
 
+  .print-page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .print-page-break-before {
+    page-break-before: always;
+    break-before: page;
+  }
+
+  .print-break-avoid {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
   body {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;

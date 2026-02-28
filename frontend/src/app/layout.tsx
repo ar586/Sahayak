@@ -25,10 +25,10 @@ export default function RootLayout({
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
-      <body className={`${newsreader.variable} ${publicSans.variable} ${playfair.variable} ${notoSerif.variable} min-h-screen flex flex-col antialiased bg-background text-foreground parchment-texture`}>
+      <body className={`${newsreader.variable} ${publicSans.variable} ${playfair.variable} ${notoSerif.variable} min-h-screen flex flex-col antialiased bg-background text-foreground parchment-texture print:block print:bg-white`}>
         <Providers>
-          <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
-            <div className="layout-container flex h-full grow flex-col">
+          <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden print:block print:overflow-visible">
+            <div className="layout-container flex h-full grow flex-col print:block">
               {/* Navbar will go here via Next.js routing tree */}
               <Navbar />
 
@@ -36,16 +36,15 @@ export default function RootLayout({
 
               {/* Footer will be rebuilt subsequently */}
               <footer className="border-t border-academic-gold/30 bg-primary text-parchment py-12 mt-auto">
-                <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-                  <div className="text-center md:text-left flex flex-col justify-center">
-                    <h4 className="text-xl font-medium italic mb-2 font-serif text-academic-gold">Sahayak</h4>
-                    <p className="text-xs opacity-60 max-w-xs md:max-w-full">A curated repository of academic knowledge for the discerning student.</p>
+                <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+                  <div className="flex justify-center md:justify-start">
+                    <img src="/logo-footer.png" alt="Sahayak Logo" className="h-16 md:h-24 w-auto object-contain" />
                   </div>
-                  <div className="text-sm italic opacity-50 font-serif flex justify-center items-center h-full">
-                    <span>© 2026 Sahayak</span>
+                  <div className="flex justify-center">
+                    <span className="text-sm italic opacity-50 font-serif whitespace-nowrap">© 2026 Sahayak</span>
                   </div>
-                  <div className="text-sm italic opacity-50 font-serif flex justify-center md:justify-end items-center h-full">
-                    <span className="flex items-center gap-1.5 group">
+                  <div className="flex justify-center md:justify-end">
+                    <span className="text-sm italic opacity-50 font-serif flex items-center gap-1.5 group whitespace-nowrap">
                       Made by
                       <a href="https://www.linkedin.com/in/aryan-anand-4aba06309/" target="_blank" rel="noopener noreferrer" className="underline group-hover:text-academic-gold transition-colors flex items-center gap-1.5">
                         Aryan Anand <Linkedin size={16} className="inline-block relative -top-[1px]" />

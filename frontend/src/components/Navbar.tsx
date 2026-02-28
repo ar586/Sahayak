@@ -16,10 +16,7 @@ export default function Navbar() {
         <nav className="w-full border-b border-academic-green/20 bg-academic-cream/80 backdrop-blur-sm sticky top-0 z-50 text-academic-green">
             <div className="max-w-7xl mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
                 <Link href="/" className="flex items-center gap-2" onClick={closeMenu}>
-                    <div className="w-10 h-10 bg-academic-green flex items-center justify-center rounded-custom shadow-sm shrink-0">
-                        <span className="text-academic-gold font-bold text-xl italic font-serif">S</span>
-                    </div>
-                    <span className="text-2xl font-bold tracking-tight uppercase font-display hidden sm:block">Sahayak</span>
+                    <img src="/logo.png" alt="Sahayak Logo" className="h-[110px] -my-6 w-auto object-contain" />
                 </Link>
 
                 {/* Mobile Menu Toggle */}
