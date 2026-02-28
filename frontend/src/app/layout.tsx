@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 import Navbar from "@/components/Navbar";
 import { Linkedin } from "lucide-react";
+import { Analytics } from "@vercel/analytics/next";
 
 const newsreader = Newsreader({ subsets: ["latin"], style: ['normal', 'italic'], variable: '--font-newsreader' });
 const publicSans = Public_Sans({ subsets: ["latin"], weight: ['300', '400', '500', '600', '700', '800', '900'], variable: '--font-public-sans' });
@@ -56,6 +57,7 @@ export default function RootLayout({
             </div>
           </div>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
