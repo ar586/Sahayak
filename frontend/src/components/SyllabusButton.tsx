@@ -32,12 +32,21 @@ export default function SyllabusButton({ url, label = "View Syllabus" }: { url: 
                     >
                         <X className="w-6 h-6" />
                     </button>
-                    <img
-                        src={url}
-                        alt="Subject Syllabus"
-                        className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
-                        onClick={(e) => e.stopPropagation()}
-                    />
+                    {url.toLowerCase().includes('.pdf') ? (
+                        <iframe
+                            src={url}
+                            title="Document Viewer"
+                            className="w-full h-[80vh] md:h-[90vh] max-w-5xl bg-white rounded-lg shadow-2xl"
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                    ) : (
+                        <img
+                            src={url}
+                            alt="Document Viewer"
+                            className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                    )}
                 </div>
             )}
         </div>
