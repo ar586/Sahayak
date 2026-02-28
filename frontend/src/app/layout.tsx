@@ -36,18 +36,18 @@ export default function RootLayout({
 
               {/* Footer will be rebuilt subsequently */}
               <footer className="border-t border-academic-gold/30 bg-primary text-parchment py-8 mt-auto">
-                <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+                <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
                   <div className="flex justify-center md:justify-start">
-                    <img src="/logo-footer.png" alt="Sahayak Logo" className="h-12 md:h-16 w-auto object-contain" />
+                    <img src="/logo-footer.png" alt="Sahayak Logo" className="h-16 md:h-20 w-auto object-contain" />
                   </div>
                   <div className="flex justify-center">
-                    <span className="text-sm italic opacity-50 font-serif whitespace-nowrap">© 2026 Sahayak</span>
+                    <span className="text-base italic opacity-50 font-serif whitespace-nowrap">© 2026 Sahayak</span>
                   </div>
                   <div className="flex justify-center md:justify-end">
-                    <span className="text-sm italic opacity-50 font-serif flex items-center gap-1.5 group whitespace-nowrap">
+                    <span className="text-base italic opacity-50 font-serif flex items-center gap-2 group whitespace-nowrap">
                       Made by
-                      <a href="https://www.linkedin.com/in/aryan-anand-4aba06309/" target="_blank" rel="noopener noreferrer" className="group-hover:text-academic-gold transition-colors flex items-center gap-1.5">
-                        Aryan Anand <Linkedin size={20} className="inline-block relative -top-[1px]" />
+                      <a href="https://www.linkedin.com/in/aryan-anand-4aba06309/" target="_blank" rel="noopener noreferrer" className="group-hover:text-academic-gold transition-colors flex items-center gap-1.5 font-bold">
+                        Aryan Anand <Linkedin size={24} className="inline-block relative -top-[1px]" />
                       </a>
                     </span>
                   </div>
