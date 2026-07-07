@@ -5,11 +5,7 @@ from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
 
 class SemanticSearchEngine:
-    """
-    Proof of Concept (PoC) Semantic Search Engine for Sahayak.
-    Uses HuggingFace embeddings and a local FAISS vector store to find relevant syllabi 
-    based on natural language queries, bypassing strict regex limitations.
-    """
+   
     
     def __init__(self):
         # We use a free HuggingFace model for the PoC to avoid OpenAI API costs during testing.
