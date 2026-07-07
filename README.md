@@ -1,17 +1,17 @@
-# Sahayak: The College Syllabus Assistant 🎓
+# Sahayak: The College Syllabus Assistant
 
 Sahayak ("Helper/Assistant" in Sanskrit) is an open-source, community-driven platform designed to demystify college semantics. It acts as an academic encyclopedia, providing students with structured breakdowns of their courses, critical study strategies, and curated study materials, turning overwhelming syllabi into actionable roadmaps.
 
 
-## Features 🚀
+## Features
 
-- **📚 Curated Academics:** Browse a vast archive of subjects with beautifully formatted, encyclopedic deep-dives into difficulty, scoring potential, and exact time investments needed.
-- **🔍 On-The-Fly Search:** Instantly filter and search for courses by name, branch, core topics, or IDs with an elegant real-time engine.
-- **📑 Unit-by-Unit Breakdowns:** Granular visibility into the postulates of each unit and its relative reward-to-effort ratios. 
-- **🎓 Strategic Blueprints:** Find specific battle-tested modes of study tailored to Mid-Semester crunches, End-Semester marathons, or 1-day rapid reviews, complete with Previous Year Question Paper (PYQ) attachments.
-- **📝 Community Contributions:** A streamlined "Contribute" wizard allowing upperclassmen and scholars to append their knowledge regarding courses they've survived. 
-- **🛡️ Admin Archiving:** Built-in dashboard and moderation capabilities to review, edit, or publish incoming syllabus contributions.
-- **🖨️ Archival Export:** Distraction-free, watermarked "Export to PDF" using native browser print optimizations for offline study sessions.
+- **Curated Academics:** Browse a vast archive of subjects with beautifully formatted, encyclopedic deep-dives into difficulty, scoring potential, and exact time investments needed.
+- **On-The-Fly Search:** Instantly filter and search for courses by name, branch, core topics, or IDs with an elegant real-time engine.
+- **Unit-by-Unit Breakdowns:** Granular visibility into the postulates of each unit and its relative reward-to-effort ratios. 
+- **Strategic Blueprints:** Find specific battle-tested modes of study tailored to Mid-Semester crunches, End-Semester marathons, or 1-day rapid reviews, complete with Previous Year Question Paper (PYQ) attachments.
+- **Community Contributions:** A streamlined "Contribute" wizard allowing upperclassmen and scholars to append their knowledge regarding courses they've survived. 
+- **Admin Archiving:** Built-in dashboard and moderation capabilities to review, edit, or publish incoming syllabus contributions.
+- **Archival Export:** Distraction-free, watermarked "Export to PDF" using native browser print optimizations for offline study sessions.
 
 ## Architecture & Tech Stack
 
@@ -30,7 +30,7 @@ Sahayak uses a decoupled, modern stack with a uniquely styled vintage "Bento" ae
 - **Authentication:** JWT (JSON Web Tokens) with Argon2 Password Hashing
 - **Validation:** Pydantic
 
-## Getting Started 🛠️
+## Getting Started
 
 ### Prerequisites
 - Node.js (v18+)
@@ -85,11 +85,11 @@ chmod +x start_app.sh
 ./start_app.sh
 ```
 
-## Contributing 🤝
+## Contributing
 
 We welcome all contributions from the student community! To directly submit content to the platform natively, log in and use the "Contribute" tab.
 If you're a developer wanting to add core functionality to Sahayak, please fork the repository and submit a PR for review. Ensure you run your tests and lints!
 
-## License 📜
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details. `Scientia potentia est.`
